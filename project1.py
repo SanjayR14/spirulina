@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
 # Load the dataset
-df = pd.read_csv(spirulina_dataset_final.csv")
+df = pd.read_csv("spirulina_dataset_final.csv")
 
 # Select necessary features for prediction
 selected_features = [
