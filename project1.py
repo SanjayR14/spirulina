@@ -3,7 +3,6 @@ import numpy as np
 import streamlit as st
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-import pickle
 
 # Load the dataset
 df = pd.read_csv(r"E:\Sem -5\Machine learning\spirulina_dataset_final.csv")
@@ -39,10 +38,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 clf = DecisionTreeClassifier(random_state=42)
 clf.fit(X_train, y_train)
 
-# Save the model as a pickle file
-with open('decision_tree_model.pkl', 'wb') as file:
-    pickle.dump(clf, file)
-
 # Streamlit UI Elements
 st.title("Spirulina Protein Content Predictor")
 
@@ -57,12 +52,8 @@ if st.button("Predict"):
         # Prepare input data
         input_data = np.array([list(user_input.values())])
         
-        # Load the model from pickle file
-        with open('decision_tree_model.pkl', 'rb') as file:
-            loaded_model = pickle.load(file)
-        
         # Predict protein content class
-        prediction = loaded_model.predict(input_data)
+        prediction = clf.predict(input_data)
         
         # Display the result
         st.success(f"Predicted Protein Content Class: {prediction[0]}")
